@@ -1,0 +1,70 @@
+.wrapper{width: 960px; margin: 10px auto; display: block;line-height: 22px;background:#FBFAFB;overflow:hidden;}
+.header{overflow:hidden;}
+.header h2{ }
+.logo{float: left;
+margin-left: 10px;
+margin-top: 10px;
+width: 264px;}
+.header_text{overflow: hidden;
+width: 675px;}
+.header_text h2{text-align:center; color:#0078FF;}
+.log {background: none repeat scroll 0 0 #09D02A;
+border-radius: 5px;
+float: right;
+font-size: 25px;
+padding: 10px;
+text-align: center;
+width: 97px;/*transition*/
+-webkit-transition:background 400ms ease 0s;
+   -moz-transition:background 400ms ease 0s;
+     -o-transition:background 400ms ease 0s;
+        transition:background 400ms ease 0s;}
+
+.log a{color: #FFFFFF;
+text-decoration: none;}
+.log:hover{background:#E7463E;}
+.header_text span {color:#E7463E;}
+.main_area{
+	overflow:hidden;
+}
+.main_left{
+	float: left;
+	width: 600px;
+	margin-left:20px;
+	
+}
+.main_right{
+	   float: left;
+	width: 315px;
+	margin-left:20px;
+}
+.advice{}
+.advice h2 {background: none repeat scroll 0 0 #3B7EBD;
+color: #FFFFFF;
+padding: 10px 15px;
+text-align: center;
+width: 136px; }
+.advice ul {}
+.youtube{}
+		
+		
+		
+		
+.footer{background: none repeat scroll 0 0 #EEEEEE;
+		border-top: 4px solid #3399FF;
+		margin-top: 39px;
+		overflow: hidden;
+	}
+.footer h2{text-align:center;}
+.menu{}
+.menu ul{list-style: none outside none;}
+.menu ul li {display: block;
+float: left;
+margin-right: 5px;}
+.menu ul li a{background: none repeat scroll 0 0 #3B7EBD;
+border-radius: 5px;
+color: #FFFFFF;
+padding: 9px;
+text-decoration: none;}
+
+#counting{display: none;}
