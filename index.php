@@ -13,7 +13,7 @@ Short Name: Osclass XML IMPORTER Universal
 To make this script is worked on your side , you should add your server connection
 
 also change your table prefix , my table prefix is "os_" if your database table prefix is "any_" 
-exm : :os_t_user to any_t_user
+exm : :pre_t_user to any_t_user
 
 
 */
@@ -29,7 +29,7 @@ ini_set("memory_limit","500M");// image memory limit
         die("Connection is Error " .mysql_error());
     }
     
-    $db_select = mysql_select_db("DATABASE_NAME",$connection);  // database name 
+    $db_select = mysql_select_db("osclass",$connection);  // database name 
     
     if(!$db_select){
         die("Connection has error " .mysql_error());
@@ -127,17 +127,18 @@ $("#email").minimalect({
 					
 			
 					<div class="log">
-						<a href="logout.php">logout</a>
+						<a href="#">logout</a>
 
 					</div>
 					<div class="menu">
 						<ul>
-							<li><a href="index.php">Inicio(joyaria)</a></li>
-							<li><a href="normal.php">General Xml</a></li>
-							<li><a href="casaxmlanucios.php">Inmobiliaria Xml</a></li>
-							<li><a href="vihiculesxmlanucios.php">Vihicules Xml</a></li>
+							<li><a href="#">Inicio(joyaria)</a></li>
+							<li><a href="#">General Xml</a></li>
+							<li><a href="#">Inmobiliaria Xml</a></li>
+							<li><a href="#">Vihicules Xml</a></li>
 						</ul>
 					</div>
+					
 				</div>
 			
 			</div>
@@ -215,7 +216,7 @@ $("#email").minimalect({
 						<h2>Esta información es para el usuario: </h2>
 						<?php
 						// category 
-								$sql = "SELECT * from os_t_category_description";
+								$sql = "SELECT * from pre_t_category_description";
 										$res = mysql_query($sql);
 						
 						?>
@@ -244,7 +245,7 @@ $("#email").minimalect({
 		 <!--Email-->
 							<?php 
 							
-								$sql = mysql_query("SELECT * FROM os_t_user ORDER BY s_name ASC");
+								$sql = mysql_query("SELECT * FROM pre_t_user ORDER BY s_name ASC");
 						  
 									
 								
@@ -341,7 +342,7 @@ $("#email").minimalect({
 mysql_close($connection);
 			foreach ($xml as $k) {
                 $connection = mysql_connect("localhost","root","");  // "hostname","username","password"
-        $db_select = mysql_select_db("DATABASE_NAME",$connection);
+        $db_select = mysql_select_db("osclass",$connection);
                         // $xml = simplexml_load_file($_POST["xml_feed"]);
          
          
@@ -420,7 +421,7 @@ mysql_close($connection);
 					
 						
                          
-								$sql = "SELECT * from os_t_category_description WHERE s_name='".$arr2[$cont]."'";
+								$sql = "SELECT * from pre_t_category_description WHERE s_name='".$arr2[$cont]."'";
 								$res = mysql_query($sql);
 								/*$cons = mysql_fetch_array($res);
 								$id_category=  $cons["fk_i_category_id"];*/
@@ -436,17 +437,17 @@ mysql_close($connection);
 
 						}else{
 						
-							$insertC = "INSERT INTO os_t_category_description (s_name) VALUES ('".mysql_real_escape_string($arr2[$cont])."')";
+							$insertC = "INSERT INTO pre_t_category_description (s_name) VALUES ('".mysql_real_escape_string($arr2[$cont])."')";
 							mysql_query($insertC);
 							$id_category = mysql_insert_id();
 
 						}
 							$cont++; //change name 
 							
-						//os_t_item_description
+						//pre_t_item_description
 						
                         $replace_price =  str_replace(',','',$price_xml);
-							 		$title ="SELECT * FROM os_t_item_description WHERE s_title='".$title_xml."'and s_description='".$description_xml."'";
+							 		$title ="SELECT * FROM pre_t_item_description WHERE s_title='".$title_xml."'and s_description='".$description_xml."'";
       
 						$title_query = mysql_query($title);
                         
@@ -456,14 +457,14 @@ mysql_close($connection);
 					if(mysql_affected_rows() > 0){
 						$reseric = mysql_fetch_array($title_query);
 				
-				$sqleric = "UPDATE os_t_item SET i_price='$price', dt_pub_date='".$_POST["time"]."',dt_mod_date='".$_POST["time"]."' WHERE pk_i_id=".$reseric["fk_i_item_id"];
+				$sqleric = "UPDATE pre_t_item SET i_price='$price', dt_pub_date='".$_POST["time"]."',dt_mod_date='".$_POST["time"]."' WHERE pk_i_id=".$reseric["fk_i_item_id"];
 				mysql_query($sqleric);
 				
 						
 						}else{ 
 						  
 	                
-                    			 $item_insert = "INSERT INTO os_t_item (fk_i_user_id,fk_i_category_id,dt_pub_date,dt_mod_date,i_price,fk_c_currency_code,s_contact_name,s_contact_email,s_ip,b_premium,b_enabled,b_active,b_spam,b_show_email)
+                    			 $item_insert = "INSERT INTO pre_t_item (fk_i_user_id,fk_i_category_id,dt_pub_date,dt_mod_date,i_price,fk_c_currency_code,s_contact_name,s_contact_email,s_ip,b_premium,b_enabled,b_active,b_spam,b_show_email)
 					 			VALUES ('".$_POST["id_user"]."','".$_POST['my_cat']."','".$_POST['time']."','".$_POST['time']."',".$price.",'EUR','".$_POST['user_name']."','".$_POST['email']."','::1','0','1','1','0','0')";
                            
                          
@@ -476,12 +477,12 @@ mysql_close($connection);
 
 
 
-							$title_insert = "INSERT INTO os_t_item_description (fk_c_locale_code,s_title,s_description,fk_i_item_id) VALUES ('es_ES','".utf8_decode($title_xml)."','".utf8_decode($description_xml)."','".$tit_id."')";
+							$title_insert = "INSERT INTO pre_t_item_description (fk_c_locale_code,s_title,s_description,fk_i_item_id) VALUES ('es_ES','".utf8_decode($title_xml)."','".utf8_decode($description_xml)."','".$tit_id."')";
 							
 							mysql_query($title_insert)  or die ("error no 2 ". mysql_error());	;
                             // inserting image url 
 						
-							$image = "INSERT INTO os_t_item_resource (fk_i_item_id,s_path,s_extension,s_content_type) VALUES ('".$tit_id."','oc-content/uploads/','jpg','image/jpeg')";
+							$image = "INSERT INTO pre_t_item_resource (fk_i_item_id,s_path,s_extension,s_content_type) VALUES ('".$tit_id."','oc-content/uploads/','jpg','image/jpeg')";
                             mysql_query($image)   or die ("error no 3 ". mysql_error());	
                             // location of image 
                             $id_imagen = "../oc-content/uploads/"; //image upload destination
@@ -490,10 +491,11 @@ mysql_close($connection);
                            
                            
 							
-                              $imagen = explode("?",$image_xml);
-                            $ruta = substr($imagen[0], 0, -5 ); // delete un-necessary part,
+                             // $imagen = explode("?",$image_xml);
+                           // $ruta = substr($imagen[0], 0, -5 ); // delete un-necessary part,
 
-                            $archivo = file_get_contents($ruta);  // read image 
+                          //  $archivo = file_get_contents($ruta);  // read image 
+                            $archivo = file_get_contents($image_xml);  // read image 
                             $aa = fopen ($id_imagen, "w+");  //
                             fwrite($aa, $archivo);
                             fclose($aa);
